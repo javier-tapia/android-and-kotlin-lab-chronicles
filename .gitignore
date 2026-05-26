@@ -1,15 +1,41 @@
+# -----------------------------------------------------------------------------
+# IDE & Android Studio (Configuraciones de entorno local)
+# -----------------------------------------------------------------------------
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+.gradle/
 local.properties
+
+# Carpetas internas de IntelliJ/Android Studio que cambian por cada PC.
+# Ignorar absolutamente todo lo que pase dentro de la carpeta .idea
+/.idea/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# -----------------------------------------------------------------------------
+# Compilación y Salidas
+# -----------------------------------------------------------------------------
+# Bloqueo global de archivos temporales de Gradle en cualquier módulo
+**/build/
+
+# Caché interno de Kotlin y procesamiento de código
+.kotlin/
+**/build-dependencies/
+
+# KSP (Kotlin Symbol Processing) - Esencial para Hilt
+**/.ksp/
+
+# -----------------------------------------------------------------------------
+# NDK / Compilación Nativa (Clave para FFmpeg/WebRTC)
+# -----------------------------------------------------------------------------
+/captures
+.externalNativeBuild/
+.cxx/
+
+# -----------------------------------------------------------------------------
+# Firmas y Seguridad
+# -----------------------------------------------------------------------------
+# Archivos de claves para firmar el APK (nunca deben ser públicos)
+*.jks
+*.keystore

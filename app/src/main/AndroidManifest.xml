@@ -1,8 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Uso del motor físico para producir vibraciones (en dispositivos físicos) -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!-- Acceso Total a Fotos y Videos (hasta Android 12 / API 32):
+    - READ_EXTERNAL_STORAGE: Se limita a 'maxSdkVersion="32"' porque a partir de Android 13 (API 33),
+      el sistema bloquea este permiso genérico y obliga a usar los permisos granulares de abajo
+      para mejorar la privacidad del usuario. Es decir: Si el usuario tiene Android 13 o superior,
+      ni siquiera se le pregunta por este permiso genérico, porque ya no sirve. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+
+    <!-- Acceso Granular a Fotos y Videos (Android 13 / API 33):
+    - READ_MEDIA_*: Permisos granulares (API 33+) que permiten acceder solo al tipo de contenido
+      necesario (imágenes, video o audio) en lugar de la totalidad del almacenamiento. -->
+    <!-- Nota sobre Políticas de Google Play:
+     El IDE puede mostrar un aviso sobre 'broad access' (PhotoAndVideoPolicy). Esto se debe a que Google
+     prioriza el uso del 'Photo Picker' (que no requiere permisos) sobre estos
+     permisos granulares, a menos que la app sea una galería o editor profesional. -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
+        tools:ignore="PhotoAndVideoPolicy" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"
+        tools:ignore="PhotoAndVideoPolicy" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+    <!-- Acceso Parcial a Fotos y Videos (Android 14+ / API 34+):
+    - READ_MEDIA_VISUAL_USER_SELECTED: Permite que el usuario otorgue acceso solo a
+      una selección manual de fotos y videos en lugar de a toda la biblioteca.
+      Esto introduce el estado de 'Permiso Parcial' que las apps deben gestionar. -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+
+    <!-- Uso de Hardware de Captura (Cámara y Micrófono):
+    - CAMERA: Requerido para que la app pueda abrir y controlar los sensores de la cámara física.
+    - RECORD_AUDIO: Permite capturar el flujo de audio del micrófono para grabaciones.
+    - MODIFY_AUDIO_SETTINGS: Necesario para ajustar parámetros como el volumen o el modo de audio
+      durante una sesión de grabación activa. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <!-- Declara que la app puede funcionar en dispositivos sin cámara física -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+    <!-- Permisos de Internet y Geolocalización:
+    - ACCESS_COARSE_LOCATION: Ubicación aproximada (red/Wi-Fi).
+    - ACCESS_FINE_LOCATION: Ubicación precisa (GPS).
+    - INTERNET: Requerido para cargar tiles de mapas y servicios de Places. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Se debe declarar la clase que hereda de Application y que usa la anotación '@HiltAndroidApp'.
+    De otra forma, el sistema operativo instanciaría la clase Application genérica de Android por
+    defecto, Hilt nunca se ejecutaría en el arranque y la app crashearía inmediatamente al abrir
+    cualquier pantalla que requiera inyección. -->
     <application
+        android:name=".LabApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,10 +64,120 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidandkotlinlabchronicles">
+
+        <!-- Proporcionar un DSN vacío -->
+        <meta-data android:name="io.sentry.dsn" android:value="" />
+
+        <!-- Configuración de Google Maps API -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR_API_KEY_HERE" />
+
+        <!-- CustomContentProvider:
+        Se registra para experimentar con el intercambio de datos entre procesos (IPC).
+        'authorities' es el ID único del proveedor. 'exported="false"' restringe el acceso
+        solo a esta app por seguridad inicial. -->
+        <provider
+            android:name=".experiments.android_fundamentals.data_sharing.content_providers.CustomContentProvider"
+            android:authorities="com.example.android_and_kotlin_lab_chronicles.provider"
+            android:exported="false" />
+
+        <!-- FileProvider:
+        Permite compartir archivos internos de forma segura.
+        'android:authorities' debe terminar en '.fileprovider' por convención.
+        Requiere un archivo XML con las rutas permitidas en res/xml/file_paths.xml. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.android_and_kotlin_lab_chronicles.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".experiments.networking_and_monitoring.monitoring.MonitoringActivity" />
+        <activity android:name=".experiments.networking_and_monitoring.network.NetworkActivity" />
+        <activity android:name=".experiments.multimedia.streaming.StreamingActivity" />
+        <activity android:name=".experiments.multimedia.processing.ProcessingActivity" />
+        <activity android:name=".experiments.multimedia.audio_only.AudioOnlyActivity" />
+        <activity android:name=".experiments.multimedia.audio_and_video.AudioVideoActivity" />
+        <activity android:name=".experiments.kotlin_pure.result_handling.ResultHandlingActivity" />
+        <activity android:name=".experiments.kotlin_pure.design_patterns.DesignPatternsActivity" />
+        <activity android:name=".experiments.kotlin_pure.data_ops.DataOpsActivity" />
+        <activity android:name=".experiments.kotlin_pure.collections.CollectionsActivity" />
+        <activity android:name=".experiments.kotlin_pure.async_and_concurrency.AsyncActivity" />
+        <activity android:name=".experiments.jetpack_compose.side_effects.SideEffectsActivity" />
+        <activity android:name=".experiments.jetpack_compose.navigation.NavigationActivity" />
+        <activity android:name=".experiments.jetpack_compose.catalog.CatalogActivity" />
+        <activity android:name=".experiments.jetpack_compose.animations.AnimationsActivity" />
+        <activity android:name=".experiments.integrations.auth_and_identity.AuthActivity" />
+        <activity android:name=".experiments.integrations.firebase.FirebaseActivity" />
+        <activity android:name=".experiments.geolocation.GeolocationActivity" />
+        <activity android:name=".experiments.dependency_injection.manual.ManualLabActivity" />
+        <activity android:name=".experiments.dependency_injection.koin.KoinLabActivity" />
+        <activity android:name=".experiments.dependency_injection.hilt.HiltLabActivity" />
+        <activity android:name=".experiments.android_fundamentals.os_integrations.system.SystemActivity" />
+        <activity android:name=".experiments.android_fundamentals.os_integrations.lifecycle.LifecycleActivity" />
+        <activity android:name=".experiments.android_fundamentals.os_integrations.background.BackgroundActivity" />
+        <activity
+            android:name=".experiments.android_fundamentals.navigation.deeplinks_and_applinks.DeepLinksActivity"
+            android:exported="true">
+
+            <!-- Deep Link: Esquema personalizado -->
+            <intent-filter android:label="Lab Deep Link">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="lab"
+                    android:scheme="example" />
+            </intent-filter>
+
+            <!-- App Link: Esquema https (requiere verificación de dominio) -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.example.com"
+                    android:pathPrefix="/lab"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".experiments.android_fundamentals.navigation.back_pressed_handling.BackPressedActivity" />
+        <activity android:name=".experiments.android_fundamentals.fragments.FragmentsActivity" />
+        <activity android:name=".experiments.android_fundamentals.data_sharing.media_store.MediaStoreActivity" />
+        <activity android:name=".experiments.android_fundamentals.data_sharing.ipc.IpcActivity" />
+        <activity android:name=".experiments.android_fundamentals.data_sharing.intents.IntentsActivity" />
+        <activity android:name=".experiments.android_fundamentals.data_sharing.file_sharing.FileSharingActivity" />
+        <activity android:name=".experiments.android_fundamentals.data_persistence.databases.DatabasesActivity" />
+        <activity android:name=".experiments.android_fundamentals.data_persistence.file_storage.FileStorageActivity" />
+        <activity android:name=".experiments.android_fundamentals.data_persistence.preferences.PreferencesActivity" />
+        <activity android:name=".experiments.android_fundamentals.data_sharing.content_providers.ContentProvidersActivity" />
+        <activity android:name=".experiments.android_fundamentals.navigation.activity_result_contracts.ActivityResultFirstActivity" />
+        <activity
+            android:name=".experiments.android_fundamentals.navigation.activity_result_contracts.ActivityResultSecondActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="screen"
+                    android:path="/second"
+                    android:scheme="example" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.Androidandkotlinlabchronicles">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,5 +186,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

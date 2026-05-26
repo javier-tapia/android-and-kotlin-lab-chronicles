@@ -24,3 +24,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "android-and-kotlin-lab-chronicles"
 include(":app")
+
+// REGISTRO DE LOS COMPONENTES DEL LABORATORIO DE DI
+include(":di-manual")
+include(":di-koin")
+include(":di-hilt")

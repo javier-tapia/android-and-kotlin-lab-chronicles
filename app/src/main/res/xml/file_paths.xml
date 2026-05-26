@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Permite compartir archivos de la carpeta cache interna -->
+    <cache-path name="my_cache_files" path="." />
+    <!-- Permite compartir archivos de la carpeta files interna -->
+    <files-path name="my_internal_files" path="." />
+</paths>
