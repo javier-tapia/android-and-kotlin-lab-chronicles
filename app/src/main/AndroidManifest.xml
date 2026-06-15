@@ -54,14 +54,17 @@
     De otra forma, el sistema operativo instanciaría la clase Application genérica de Android por
     defecto, Hilt nunca se ejecutaría en el arranque y la app crashearía inmediatamente al abrir
     cualquier pantalla que requiera inyección. -->
+    <!-- Para cambiar el ícono de la app, se debe hacer lo siguiente:
+    Clic derecho en res.drawable > New Image Asset > Agregar la imagen en el Path de Foreground Layer.
+    Luego, se puede escalar según sea necesario y también elegir agregar una imagen o color en Background Layer -->
     <application
         android:name=".LabApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidandkotlinlabchronicles">
 
