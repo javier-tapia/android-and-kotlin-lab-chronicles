@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.android_and_kotlin_lab_chronicles.di_hilt"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 26

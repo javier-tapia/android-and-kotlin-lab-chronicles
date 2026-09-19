@@ -5,7 +5,7 @@ plugins {
 android {
     // Namespace único para identificar este componente binario de forma aislada
     namespace = "com.example.android_and_kotlin_lab_chronicles.di_manual"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 26

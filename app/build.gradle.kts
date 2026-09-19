@@ -10,7 +10,7 @@ plugins {
 android {
     namespace = "com.example.android_and_kotlin_lab_chronicles"
     compileSdk {
-        version = release(36) {
+        version = release(37) {
             minorApiLevel = 1
         }
     }
@@ -18,7 +18,7 @@ android {
     defaultConfig {
         applicationId = "com.example.android_and_kotlin_lab_chronicles"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -90,6 +90,7 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.compose.adaptive)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.constraintlayout.compose)
 
@@ -99,6 +100,7 @@ dependencies {
     // Nav3
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 
     // Multimedia: Media3/ExoPlayer
     implementation(libs.androidx.media3.exoplayer)
@@ -161,6 +163,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Si no agrego esta, falla la de junit4
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)

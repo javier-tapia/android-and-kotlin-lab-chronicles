@@ -1,7 +1,13 @@
 package com.example.android_and_kotlin_lab_chronicles.experiments.dependency_injection.hilt
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 
 /**
@@ -28,9 +34,17 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
  */
 @Composable
 fun HiltLabScreen(
+    modifier: Modifier = Modifier,
     viewModel: HiltLabViewModel = hiltViewModel(),
 ) {
-    viewModel.logHiltFromHiltLabScreen()
-
-    Text("Texto de ejemplo")
+    Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text = viewModel.logHiltFromHiltLabScreen())
+        }
+    }
 }

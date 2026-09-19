@@ -2,7 +2,7 @@ package com.example.android_and_kotlin_lab_chronicles.experiments.dependency_inj
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.android_and_kotlin_lab_chronicles.hilt.LabConfigurator
+import com.example.android_and_kotlin_lab_chronicles.hilt.HiltLabConfigurator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -25,21 +25,17 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class HiltLabViewModel @Inject constructor(
-    private val labConfigurator: LabConfigurator
+    private val hiltLabConfigurator: HiltLabConfigurator
 ) : ViewModel() {
     private val tag = "HiltLabChronicles"
 
     fun logHiltFromActivity() {
         Log.d(
             tag,
-            "[Activity] Interceptada con éxito. Mensaje del Grafo: ${labConfigurator.getEnvironmentName()}"
+            "[Activity] Interceptada con éxito. Mensaje del Grafo: ${hiltLabConfigurator.getEnvironmentName()}"
         )
     }
 
-    fun logHiltFromHiltLabScreen() {
-        Log.d(
-            tag,
-            "[Screen] Composable resuelto mediante hiltViewModel(). Mensaje: ${labConfigurator.getEnvironmentName()}"
-        )
-    }
+    fun logHiltFromHiltLabScreen() =
+        "[Screen] Mensaje: ${hiltLabConfigurator.getEnvironmentName()}"
 }
