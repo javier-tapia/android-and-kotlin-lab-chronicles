@@ -26,12 +26,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 
 /**
@@ -111,6 +114,10 @@ fun NavigationHandlerLab() {
  * - ``NavEntry``: Es el objeto que envuelve la ruta original junto con su propio ciclo de vida
  * (*Lifecycle*), estado guardado (*SavedState*) y metadatos. Es el objeto que realmente "vive"
  * en la memoria.
+ * - ``entryDecorators``: Se encargan de la preservación del estado y del alcance (*scope*)
+ * del ViewModel.
+ * - ``sceneStrategies``: Permite mostrar varios destinos simultáneamente. Perfecto para
+ * tablets y dispositivos plegables (*foldables*).
  * - ``entryProvider {...}``: Es una función de orden superior donde se centraliza la **definición de
  * todas las rutas** y cómo estas se transforman en contenido visual. Se encarga de procesar el
  * *backstack* cuando se navega a una ruta, envolviendo cada objeto de ruta en un ``NavEntry`` en
@@ -133,10 +140,16 @@ fun NavigationHandlerLab() {
 @Composable
 fun Navigation3Sample() {
     val backstack = rememberNavBackStack(Routes.ScreenA)
+    val twoPaneStrategy = rememberTwoPaneSceneStrategy<NavKey>()
 
     NavDisplay(
         backStack = backstack,
         onBack = { if (backstack.size > 1) backstack.removeLastOrNull() },
+        entryDecorators = listOf(
+            rememberSaveableStateHolderNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator()
+        ),
+        sceneStrategies = listOf(twoPaneStrategy),
         entryProvider = entryProvider {
             entry<Routes.ScreenA> {
                 ScreenAContent(

@@ -149,8 +149,13 @@ private val LightColorScheme = lightColorScheme(
  *
  * #### TIP para obtener la paleta de colores
  * 1. Entrar al sitio de [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/)
- * 2. Hacer click en el color **Primary** e ingresar el código Hexadecimal del color (o elegir con el slider)
- * 3. Tildar el checkbox de **Color match** para que el builder sea fiel al color ingresado
+ * 2. Tildar el checkbox de **Color match** para que el builder sea fiel a los colores ingresados.
+ * Acá es importante señalar que la herramienta no toma el color ingresado como "absoluto", sino
+ * más bien como una "semilla" (*seed color*) a partir del cual genera una rampa de 18 tonos que van
+ * desde el blanco puro (100) hasta el negro absoluto (0), esto con el objeto de cumplir con las normas
+ * internacionales de accesibilidad.
+ * 3. Hacer click en el color **Primary** e ingresar el código Hexadecimal del color (o elegir con el slider).
+ * Lo mismo para los otros colores en caso de querer ingresarlos.
  * 4. Opcionalmente, se pueden elegir fuentes tipográficas
  * 5. Exportar (elegir la opción de Jetpack Compose para descargar un archivo ``.zip`` que contiene tres
  * archivos: ``Color.kt``, ``Theme.kt`` y ``Type.kt``)

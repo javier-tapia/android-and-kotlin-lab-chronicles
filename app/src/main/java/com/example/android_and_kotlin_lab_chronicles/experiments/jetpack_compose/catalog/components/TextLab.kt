@@ -154,7 +154,10 @@ fun AnnotatedStringSample() {
         pushStringAnnotation(tag = "USER_ID", annotation = "12345")
 
         // Se le da un estilo específico
-        withStyle(style = SpanStyle(color = Color.Red, fontWeight = FontWeight.Bold)) {
+        withStyle(style = SpanStyle(
+            color = Color.Red,
+            fontWeight = FontWeight.Bold
+        )) {
             append("Javi")
         }
 

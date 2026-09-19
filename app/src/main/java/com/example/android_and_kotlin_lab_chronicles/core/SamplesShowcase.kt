@@ -19,8 +19,9 @@ import com.example.android_and_kotlin_lab_chronicles.experiments.jetpack_compose
  * Contenedor utilitario diseñado para exhibir múltiples experimentos o variantes de componentes
  * de forma organizada y estandarizada.
  *
- * El **patrón *Slot* API** permite mantener la consistencia visual al mostrar distintos componentes similares,
- * sin necesidad de gestionar manualmente los márgenes o divisores en cada laboratorio.
+ * El **patrón *Slot* API** (*slot* = `@Composable () -> Unit`) permite mantener la consistencia
+ * visual al mostrar distintos componentes similares, sin necesidad de gestionar manualmente
+ * los márgenes o divisores en cada laboratorio.
  *
  * @param [samples] Lista de composables que se renderizarán secuencialmente
  * con espaciado y divisores automáticos.

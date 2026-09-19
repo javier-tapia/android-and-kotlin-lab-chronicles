@@ -14,11 +14,12 @@ import com.example.android_and_kotlin_lab_chronicles.R
  * 1. Entrar al sitio de [Google Fonts](https://fonts.google.com/).
  * 2. Elegir la **familia de la fuente** (**_Font Family_**) ``tirra`` y hacer click para entrar al
  * detalle (acá también permite previsualizar los distintos estilos en caso de que tenga varios).
- * 3. Hacer click en el botón **_Get Font_** y luego descargarla (usualmente, se guarda un archivo
+ * 3. Hacer click en el botón **_Get Font_** y luego descargarla. Usualmente, se guarda un archivo
  * ``.zip`` que contiene un archivo ``.txt`` con la licencia y otros ``.ttf`` con los diferentes
- * estilos de la fuente).
- * 4. Crear un nuevo directorio dentro de ``/res`` llamado ``/font`` y mover el archivo (o los
- * archivos, en caso de que sean varios estilos) ``.ttf`` dentro.
+ * estilos de la fuente. Extraer dichos archivos del `.zip`.
+ * 4. Crear un nuevo directorio dentro de ``/res`` (o `composeResources` en caso de estar trabajando
+ * con KMP) llamado ``/font`` y mover el archivo (o los archivos, en caso de que sean varios
+ * estilos) ``.ttf`` dentro.
  * 5. Se debe cambiar el nombre original de ser necesario, ya que el compilador de Android (``aapt2``)
  * solo admite letras minúsculas de la ``a-z``, números ``0-9`` y guiones bajos ``_``.
  * 6. Se crea una nueva propiedad de tipo ``FontFamily`` que recibe uno o más objetos de tipo
@@ -29,6 +30,20 @@ import com.example.android_and_kotlin_lab_chronicles.R
  * ```kotlin
  * fontFamily = tirra, // En lugar de FontFamily.Default
  * ```
+ *
+ * **IMPORTANTE**: En KMP/CMP, se usa `org.jetbrains.compose.resources.Font`, la cual es una función
+ * composable.
+ *
+ * **NOTA**: Algunas fuentes proveen fuentes variables además de las estáticas.
+ * - **Fuentes Estáticas**: Tienen valores fijos. Cada archivo `.ttf` representa un único peso y
+ * tamaño óptico (*optical size*), el cual es un ajuste en el diseño de las letras para optimizar
+ * su legibilidad según se lean en textos pequeños (trazos más gruesos y espaciados) o en títulos
+ * grandes (detalles más finos y estilizados). Si se cambia el tamaño del texto en código,
+ * la fuente solo se escala vectorialmente.
+ *
+ * - **Fuentes Variables**: Un solo archivo `.ttf` contiene ejes continuos (*weight*, *slant*, *optical
+ * size*). Permiten ajustar dinámicamente el grosor o la forma del trazo en cualquier punto
+ * intermedio mediante código.
  *
  * @see LabTheme
  * @see shapes
