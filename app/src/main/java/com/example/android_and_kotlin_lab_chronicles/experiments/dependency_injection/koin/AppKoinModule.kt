@@ -22,11 +22,15 @@ import org.koin.dsl.module
  * Koin resuelve e inyecta automáticamente los parámetros del constructor (como ``KoinLabConfigurator``)
  * de forma limpia. No utiliza reflexión (es muy costosa), sino funciones 'inline' con tipos 'reified'
  * nativas de Kotlin, manteniendo un rendimiento óptimo en tiempo de ejecución.
+ *
+ * @see com.example.android_and_kotlin_lab_chronicles.koin.labKoinModule
  */
 val appKoinModule = module {
+    // ① Opción Explícita (*Manual DSL*)
 //    viewModel<KoinLabViewModel> {
 //        KoinLabViewModel(configurator = get())
 //    }
 
+    // ② Opción Sintáctica (*Constructor Binding DSL*)
     viewModelOf(::KoinLabViewModel)
 }

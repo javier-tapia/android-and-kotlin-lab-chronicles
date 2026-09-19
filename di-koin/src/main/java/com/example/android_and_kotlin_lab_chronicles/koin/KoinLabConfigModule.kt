@@ -1,5 +1,8 @@
 package com.example.android_and_kotlin_lab_chronicles.koin
 
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 /**
@@ -21,15 +24,25 @@ class KoinLabMessageFormatter {
  *
  * La llamada `get()` instruye a Koin a resolver e inyectar automáticamente las dependencias
  * previas registradas en el contenedor (como el `Context` global provisto por `androidContext(...)`).
+ *
+ * @see AppKoinModule
  */
 val labKoinModule = module {
+    // ① Opción Explícita (*Manual DSL*)
     // Registra el configurador como un Singleton (mantiene estado/configuración global)
-    single<KoinLabConfigurator> {
-        CoreKoinLabConfigurator(context = get())
-    }
+//    single<KoinLabConfigurator> {
+//        CoreKoinLabConfigurator(context = get())
+//    }
 
     // Registra el formateador como Factory (crea una nueva instancia efímera en cada inyección)
-    factory {
-        KoinLabMessageFormatter()
-    }
+//    factory {
+//        KoinLabMessageFormatter()
+//    }
+
+    // ② Opción Sintáctica (*Constructor Binding DSL*)
+    // Se usa 'bind' para enlazar el tipo concreto con su interfaz/contrato
+    singleOf(::CoreKoinLabConfigurator) bind KoinLabConfigurator::class
+
+    // Para KoinLabMessageFormatter no hace falta 'bind' porque no implementa ninguna interfaz
+    factoryOf(::KoinLabMessageFormatter)
 }
