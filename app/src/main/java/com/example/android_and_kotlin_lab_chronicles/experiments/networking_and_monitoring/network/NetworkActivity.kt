@@ -16,7 +16,7 @@ class NetworkActivity : ComponentActivity() {
         
         setContent {
             BaseLayoutScreen(title = "Networking Lab (Retrofit & Ktor)") {
-                // UI para: Disparar peticiones, ver JSON de respuesta y monitorear logs
+                NetworkLab()
             }
         }
     }
