@@ -43,7 +43,7 @@ import kotlin.jvm.java
 object ExperimentProvider {
     val experiments = listOf(
         Experiment(
-            title = "Databases (Room & Realm)",
+            title = "Databases (Room)",
             topic = ExperimentTopic.FUNDAMENTALS,
             target = DatabasesActivity::class.java,
         ),

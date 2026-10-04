@@ -145,6 +145,11 @@ dependencies {
     implementation(libs.retrofit.kotlinx.serialization)
     implementation(libs.ktor.serialization.kotlinx)
 
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
     // Sentry and Segment
     implementation(libs.sentry.android)
     implementation(libs.segment.analytics)
@@ -155,9 +160,6 @@ dependencies {
     // DI con Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation)
-    // KSP (Kotlin Symbol Processing) es un procesador de anotaciones en tiempo de compilación que
-    // ofrece mejor rendimiento y tiempos de compilación más rápidos en comparación con KAPT
-    // (Kotlin Annotation Processing Tool)
     ksp(libs.hilt.compiler)
 
     // Testing

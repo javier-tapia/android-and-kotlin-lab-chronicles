@@ -8,3 +8,13 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.android.library) apply false
 }
+
+allprojects {
+    configurations.all {
+        resolutionStrategy.dependencySubstitution {
+            substitute(module("com.intellij:annotations"))
+                .using(module(libs.jetbrains.annotations.get().toString()))
+                .because("com.intellij:annotations fue migrado a org.jetbrains:annotations")
+        }
+    }
+}

@@ -38,7 +38,7 @@ Fundamentos del framework y componentes principales del sistema.
     *   **System**: Notificaciones, Widgets, Shortcuts, In-App Updates y In-App Reviews.
     *   **Lifecycle**: Manejo de *Process Death*.
 *   **Data & Sharing**:
-    *   **Persistence**: Room, Realm, SharedPreferences, EncryptedSharedPreferences, DataStore, gestión de archivos (*Scoped Storage*).
+    *   **Persistence**: Room, SharedPreferences, EncryptedSharedPreferences, DataStore, gestión de archivos (*Scoped Storage*).
     *   **Sharing**: Intents (implícitos/explícitos), IPC, FileProvider, MediaStore, ContentProviders.
 
 ### 💉 Inyección de Dependencias
