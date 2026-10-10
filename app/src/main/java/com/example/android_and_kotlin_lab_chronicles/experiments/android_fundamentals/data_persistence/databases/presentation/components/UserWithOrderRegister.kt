@@ -26,6 +26,8 @@ fun UserWithOrderRegister(
     // Estado de scroll independiente para cada registro del elemento.
 //    val scrollState = rememberScrollState()
 
+    val isActive = if (item.user.isActive) "Activo" else "Desactivado"
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,6 +47,7 @@ fun UserWithOrderRegister(
                 .padding(end = 8.dp)
         ) {
             Text("ID ${item.user.uid}: ${item.user.firstName} ${item.user.lastName}")
+            Text("Estado: $isActive")
 
             // 2. El Text con 'basicMarquee' ahora detectará que desborda el ancho asignado
             Text(

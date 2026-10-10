@@ -30,6 +30,7 @@ import androidx.room.PrimaryKey
  * @property uid Identificador único incremental del usuario (Clave Primaria).
  * @property firstName Nombre del usuario.
  * @property lastName Apellido del usuario.
+ * @property isActive Indica si el usuario está activo o no.
  */
 @Entity(tableName = "room_users")
 data class RoomUserEntity(
