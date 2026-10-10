@@ -30,11 +30,12 @@ lifecycle-viewmodel-nav3 = "2.11.0"
 coil-compose = "2.7.0"
 koin = "4.2.2"
 hilt = "2.60.1"
-hilt-navigation = "1.4.0"
+androidx-hilt = "1.4.0"
 ksp = "2.3.6"
 adaptive = "1.3.0"
 room = "2.8.5"
 jetbrainsAnnotations = "26.1.0"
+workManager = "2.12.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -124,7 +125,9 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 # DI con Hilt
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation" }
+androidx-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
+androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
+androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 
 # DI con Koin
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
@@ -135,6 +138,9 @@ koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compos
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+# WorkManager
+work-manager = { module = "androidx.work:work-runtime-ktx", version.ref = "workManager" }
 
 # Se agrega esta versión para poder sustituir la deprecada 'org.intellij:annotations'
 jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrainsAnnotations" }

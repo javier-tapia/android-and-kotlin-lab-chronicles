@@ -159,8 +159,13 @@ dependencies {
 
     // DI con Hilt
     implementation(libs.hilt.android)
-    implementation(libs.hilt.navigation)
+    implementation(libs.androidx.hilt.navigation)
+    implementation(libs.androidx.hilt.work)
     ksp(libs.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
+
+    // WorkManager
+    implementation(libs.work.manager)
 
     // Testing
     testImplementation(libs.junit)

@@ -1,6 +1,8 @@
 package com.example.android_and_kotlin_lab_chronicles
 
 import android.app.Application
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
 import com.example.android_and_kotlin_lab_chronicles.experiments.dependency_injection.koin.appKoinModule
 import com.example.android_and_kotlin_lab_chronicles.koin.labKoinModule
 import com.example.android_and_kotlin_lab_chronicles.manual.AppContainer
@@ -8,6 +10,7 @@ import dagger.hilt.android.HiltAndroidApp
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import javax.inject.Inject
 
 /**
  * Punto de entrada global de la aplicación (`Application`).
@@ -32,10 +35,13 @@ import org.koin.core.context.startKoin
  * de inyección para el *Service Locator*.
  */
 @HiltAndroidApp
-class LabApplication : Application() {
+class LabApplication : Application(), Configuration.Provider {
     // Contenedor de DI Manual accesible globalmente
     lateinit var appContainer: AppContainer
         private set
+
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
 
     override fun onCreate() {
         super.onCreate()
@@ -53,4 +59,17 @@ class LabApplication : Application() {
             )
         }
     }
+
+    /**
+     * ``WorkManager`` **no puede instanciar *Workers* con constructores personalizados** sin un
+     * `WorkerFactory`. Al usar Hilt, es obligatorio proveer `HiltWorkerFactory`
+     * desde la clase `Application`.
+     *
+     * Además, se debe agregar un `<provider>` en el Manifest para desactivar el inicializador
+     * automático de WorkManager.
+     */
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
 }

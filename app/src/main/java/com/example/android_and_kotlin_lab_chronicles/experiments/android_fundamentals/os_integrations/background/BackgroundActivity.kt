@@ -5,10 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.android_and_kotlin_lab_chronicles.core.BaseLayoutScreen
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * UI para monitorear y ejecutar experimentos de tareas en segundo plano y receptores de sistema.
  */
+@AndroidEntryPoint
 class BackgroundActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +18,7 @@ class BackgroundActivity : ComponentActivity() {
         
         setContent {
             BaseLayoutScreen(title = "Background Lab") {
-                // UI para controlar: WorkManager, Services, AlarmManager y BroadcastReceiver
+                BackgroundLab()
             }
         }
     }

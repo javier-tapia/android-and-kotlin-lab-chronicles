@@ -99,6 +99,26 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <!-- Desactivación del inicializador automático de WorkManager mediante Jetpack App Startup.
+        - Por qué: WorkManager utiliza por defecto 'App Startup' para inicializarse automáticamente
+        al arrancar la aplicación con una configuración estándar. Sin embargo, al integrar Hilt
+        se necesita inyectar un 'WorkerFactory' personalizado, lo cual genera un conflicto de
+        inicialización prematura ('NoSuchMethodException') antes de que Hilt esté listo.
+        - Para qué: Neutralizar el proveedor predeterminado ('WorkManagerInitializer') usando
+        'tools:node="remove"' permite delegar el control de la inicialización en la clase
+        'Application' (implementando 'Configuration.Provider'), asegurando que WorkManager se
+        configure correctamente con las dependencias de Hilt al momento de su primera llamada. -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+
         <activity android:name=".experiments.networking_and_monitoring.monitoring.MonitoringActivity" />
         <activity android:name=".experiments.networking_and_monitoring.network.NetworkActivity" />
         <activity android:name=".experiments.multimedia.streaming.StreamingActivity" />
