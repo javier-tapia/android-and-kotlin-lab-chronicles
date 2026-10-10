@@ -1,6 +1,6 @@
 package com.example.android_and_kotlin_lab_chronicles.experiments.networking_and_monitoring.network.data.interceptors
 
-import android.util.Log
+import com.example.android_and_kotlin_lab_chronicles.core.utils.CustomLogger.log
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -35,12 +35,15 @@ class NetworkMetricsInterceptor : Interceptor {
         val response = try {
             chain.proceed(request)
         } catch (e: Exception) {
-            Log.d("Lab", "❌ [NetworkInterceptor] Fallo en la llamada a ${request.url}: ${e.message}")
+            log("NetworkMetricsInterceptor", "❌ Fallo en la llamada a ${request.url}: ${e.message}")
             throw e
         }
 
         val tookMs = (System.nanoTime() - startNs) / 1e6
-        Log.d("Lab","🌐 [NetworkInterceptor] ${request.method} ${request.url} -> Status: ${response.code} (${tookMs}ms)")
+        log(
+            "NetworkMetricsInterceptor",
+            "🌐 ${request.method} ${request.url} -> Status: ${response.code} (${tookMs}ms)"
+        )
 
         return response
     }

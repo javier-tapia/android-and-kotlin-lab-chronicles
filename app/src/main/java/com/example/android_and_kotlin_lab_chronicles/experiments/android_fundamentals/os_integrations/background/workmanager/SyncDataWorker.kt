@@ -1,10 +1,10 @@
 package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.workmanager
 
 import android.content.Context
-import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.example.android_and_kotlin_lab_chronicles.core.utils.CustomLogger.log
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlin.coroutines.cancellation.CancellationException
@@ -47,7 +47,7 @@ class SyncDataWorker @AssistedInject constructor(
             // propagarse para que 'WorkManager' maneje el estado correctamente.
             throw e
         } catch (e: Exception) {
-            Log.e(
+            log(
                 "SyncDataWorker",
                 "Error executing sync task. Attempt: $runAttemptCount",
                 e

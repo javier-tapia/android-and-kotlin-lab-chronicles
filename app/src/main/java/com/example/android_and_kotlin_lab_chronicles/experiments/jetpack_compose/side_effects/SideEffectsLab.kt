@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
@@ -59,6 +58,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.android_and_kotlin_lab_chronicles.core.SamplesShowcase
+import com.example.android_and_kotlin_lab_chronicles.core.utils.CustomLogger.log
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -68,6 +68,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 private const val TAG = "SideEffectsLab"
 
@@ -158,12 +159,12 @@ fun LaunchedEffectSample(modifier: Modifier = Modifier) {
     // Se ejecuta una única vez cuando el componente se añade al árbol de la UI (fase de Commit).
     // Diseñado para inicializaciones asíncronas de la interfaz de usuario.
     LaunchedEffect(Unit) {
-        Log.i(
+        log(
             TAG,
             "[LaunchedEffect-Unit] Inicializando componente. Solicitando foco del teclado de forma automática."
         )
         // Retraso técnico mínimo para garantizar la existencia del nodo en el árbol de renderizado
-        delay(100)
+        delay(100.milliseconds)
         focusRequester.requestFocus()
     }
 
@@ -176,16 +177,17 @@ fun LaunchedEffectSample(modifier: Modifier = Modifier) {
             return@LaunchedEffect
         }
 
-        Log.i(
+        log(
             TAG,
             "[LaunchedEffect-Key] Clave modificada a '$searchQuery'. Cancelando corrutina previa y reiniciando temporizador de debounce."
         )
+
         searchResult = "Procesando entrada..."
 
         // Retraso de estabilización (Debounce) para mitigar ráfagas de escritura
-        delay(500)
+        delay(500.milliseconds)
 
-        Log.i(
+        log(
             TAG,
             "[LaunchedEffect-Key] Debounce superado con éxito. Ejecutando operación de filtrado para: '$searchQuery'"
         )
@@ -255,7 +257,7 @@ fun SideEffectSample(modifier: Modifier = Modifier) {
     // y se agende cuando la pantalla consolide un estado de error.
     if (hasError) {
         SideEffect {
-            Log.i(
+            log(
                 TAG,
                 "[SideEffect] Estado de error consolidado en pantalla (Fase de Commit). Transmitiendo pulso al hardware."
             )
@@ -351,7 +353,7 @@ fun DisposableEffectSample(modifier: Modifier = Modifier) {
         // Cláusula de desvinculación obligatoria. Se ejecuta inmediatamente si el componente
         // abandona el árbol de UI (por scroll en LazyColumn, navegación o destrucción de la vista).
         onDispose {
-            Log.i(
+            log(
                 TAG,
                 "[DisposableEffect] El componente sale de la composición. " +
                         "Liberando recursos del sensor de hardware de forma segura."
@@ -802,7 +804,7 @@ fun SnapshotFlowSample(
             // Filtrado de emisiones consecutivas idénticas
             .distinctUntilChanged()
             // Suspensión por 3 segundos de inactividad antes de emitir (estabilización)
-            .debounce(3000)
+            .debounce(3000.milliseconds)
             .collect { stabilizedProgress ->
                 // Ejecución del efecto colateral de infraestructura fuera del hilo principal de UI
                 viewModel.sendAnalyticsReport(stabilizedProgress)

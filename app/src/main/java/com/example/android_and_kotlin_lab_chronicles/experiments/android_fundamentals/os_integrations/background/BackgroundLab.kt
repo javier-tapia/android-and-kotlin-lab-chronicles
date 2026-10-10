@@ -12,16 +12,16 @@ import com.example.android_and_kotlin_lab_chronicles.experiments.android_fundame
  * 
  * #### Temas:
  * - ***WorkManager***: Tareas persistentes.
+ * - ***BroadcastReceiver***: Escucha de eventos del sistema (Batería, Conectividad, *Boot*).
  * - ***Services***: Tareas en primer plano (*Foreground*) y vinculadas (*Bound*).
  * - ***AlarmManager***: Programación de tareas en momentos exactos (*Exact Alarms*).
- * - ***BroadcastReceiver***: Escucha de eventos del sistema (Batería, Conectividad, *Boot*).
  */
 @Composable
 fun BackgroundLab() {
     SamplesShowcase(
         { WorkManagerLab() },
+        { BroadcastReceiverLab() },
         { ServicesLab() },
         { AlarmManagerLab() },
-        { BroadcastReceiverLab() }
     )
 }

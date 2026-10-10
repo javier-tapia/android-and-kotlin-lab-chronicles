@@ -42,7 +42,7 @@ fun WorkManagerLab(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Text(
-            text = "WorkManager: Patrones Avanzados & Hilt",
+            text = "WorkManagerLab",
             style = MaterialTheme.typography.titleMedium
         )
 

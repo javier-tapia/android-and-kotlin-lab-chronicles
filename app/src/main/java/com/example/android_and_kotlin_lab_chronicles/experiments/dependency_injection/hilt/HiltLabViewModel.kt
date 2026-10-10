@@ -1,7 +1,7 @@
 package com.example.android_and_kotlin_lab_chronicles.experiments.dependency_injection.hilt
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.android_and_kotlin_lab_chronicles.core.utils.CustomLogger.log
 import com.example.android_and_kotlin_lab_chronicles.hilt.HiltLabConfigurator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class HiltLabViewModel @Inject constructor(
     private val tag = "HiltLabChronicles"
 
     fun logHiltFromActivity() {
-        Log.d(
+        log(
             tag,
             "[Activity] Interceptada con éxito. Mensaje del Grafo: ${hiltLabConfigurator.getEnvironmentName()}"
         )
