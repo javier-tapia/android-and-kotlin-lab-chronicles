@@ -1,4 +1,4 @@
-package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.broadcastreceiver
+package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.broadcast_receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context

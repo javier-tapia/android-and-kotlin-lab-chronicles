@@ -105,6 +105,7 @@ dependencies {
     // Multimedia: Media3/ExoPlayer
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
+    implementation(libs.androidx.media3.session)
 
     // Multimedia: CameraX
     implementation(libs.androidx.camera.core)
@@ -166,6 +167,9 @@ dependencies {
 
     // WorkManager
     implementation(libs.work.manager)
+
+    // Leak Canary
+    debugImplementation(libs.leakcanary)
 
     // Testing
     testImplementation(libs.junit)

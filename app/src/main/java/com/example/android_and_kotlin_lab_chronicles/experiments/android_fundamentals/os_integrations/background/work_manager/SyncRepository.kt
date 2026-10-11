@@ -1,4 +1,4 @@
-package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.workmanager
+package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.work_manager
 
 import kotlinx.coroutines.delay
 import javax.inject.Inject

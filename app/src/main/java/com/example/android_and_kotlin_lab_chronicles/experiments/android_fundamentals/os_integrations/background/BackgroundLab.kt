@@ -2,10 +2,10 @@ package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundam
 
 import androidx.compose.runtime.Composable
 import com.example.android_and_kotlin_lab_chronicles.core.SamplesShowcase
-import com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.alarmmanager.AlarmManagerLab
-import com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.broadcastreceiver.BroadcastReceiverLab
+import com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.alarm_manager.AlarmManagerLab
+import com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.broadcast_receivers.BroadcastReceiverLab
 import com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.services.ServicesLab
-import com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.workmanager.WorkManagerLab
+import com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.work_manager.WorkManagerLab
 
 /**
  * ### Ejecución en segundo plano y comunicación con el sistema

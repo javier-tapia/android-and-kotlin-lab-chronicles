@@ -1,4 +1,4 @@
-package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.workmanager
+package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.work_manager
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,7 +43,7 @@ fun WorkManagerLab(
     ) {
         Text(
             text = "WorkManagerLab",
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleLarge
         )
 
         // 1. Trabajo único con KEEP

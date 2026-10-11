@@ -54,6 +54,18 @@
     Permiso requerido a nivel de aplicación para escuchar el evento de reinicio del dispositivo -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- Permiso para enviar notificaciones (Android 13+).
+    Al ser un Runtime Permission, requiere que la app le pida confirmación al usuario en pantalla. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Permiso específico para el tipo de Foreground Service (Android 14+).
+    Los permisos específicos de tipo de FGS como 'FOREGROUND_SERVICE_MEDIA_PLAYBACK' son clasificados por
+    el framework como Normal Permissions. Esto significa que el sistema los concede automáticamente
+    al momento de la instalación y el usuario no puede revocarlos de forma individual.
+    Sin embargo, si se omite declararlo en el Manifest y la app apunta a Android 14+, el framework
+    lanzará una 'SecurityException' de manera inmediata al invocar 'startForeground()'. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+
     <!-- Se debe declarar la clase que hereda de Application y que usa la anotación '@HiltAndroidApp'.
     De otra forma, el sistema operativo instanciaría la clase Application genérica de Android por
     defecto, Hilt nunca se ejecutaría en el arranque y la app crashearía inmediatamente al abrir
@@ -128,7 +140,7 @@
         nuestro Process UID).
         - 'android:permission': Restringe la invocación directa a procesos que posean el permiso de sistema. -->
         <receiver
-            android:name=".experiments.android_fundamentals.os_integrations.background.broadcastreceiver.StaticBootReceiver"
+            android:name=".experiments.android_fundamentals.os_integrations.background.broadcast_receivers.StaticBootReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
@@ -137,6 +149,24 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
+
+        <!-- Foreground Service (FGS) con tipado obligatorio ('mediaPlayback' en este caso) y
+        aislamiento estricto de seguridad -->
+        <service
+            android:name=".experiments.android_fundamentals.os_integrations.background.services.MusicPlayerForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
+        <!-- Bound Service (BS) interno blindado contra accesos externos -->
+        <service
+            android:name=".experiments.android_fundamentals.os_integrations.background.services.FileDownloadBoundService"
+            android:exported="false" />
+
+        <!-- Hybrid Service ("Started and Bound"): reúne las características de un FGS y un BS -->
+        <service
+            android:name=".experiments.android_fundamentals.os_integrations.background.services.MusicPlayerHybridService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
 
         <activity android:name=".experiments.networking_and_monitoring.monitoring.MonitoringActivity" />
         <activity android:name=".experiments.networking_and_monitoring.network.NetworkActivity" />

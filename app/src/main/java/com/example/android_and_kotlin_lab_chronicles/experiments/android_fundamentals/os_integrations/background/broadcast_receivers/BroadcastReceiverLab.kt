@@ -1,4 +1,4 @@
-package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.broadcastreceiver
+package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.broadcast_receivers
 
 import android.content.Context.RECEIVER_NOT_EXPORTED
 import android.content.Intent
@@ -79,7 +79,7 @@ fun BroadcastReceiverLab() {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Text(
             text = "BroadcastReceiverLab",
