@@ -16,7 +16,7 @@ class DeepLinksActivity : ComponentActivity() {
         
         setContent {
             BaseLayoutScreen(title = "Deep Links Lab") {
-                // UI para mostrar los datos recibidos a través de la URI
+                DeepLinksLab()
             }
         }
     }

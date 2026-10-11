@@ -179,18 +179,23 @@ fun AnimateXAsStateSample() {
 //            .clipToBounds(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text("AnimateXAsState", style = MaterialTheme.typography.titleLarge)
+
         Spacer(Modifier.height(32.dp))
+
         Button(
             onClick = { isSelected = !isSelected }
         ) {
             Text("Animar box")
         }
+
         Spacer(Modifier.height(8.dp))
 
         // Se muestra el impacto del finishedListener en la pantalla
         Text(animationStatus)
 
         Text("Background alpha: %.2f".format(animatedFloat))
+
         Spacer(Modifier.height(32.dp))
 
         Box(
@@ -247,10 +252,11 @@ fun AnimatedVisibilitySample(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .background(Color.White),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text("AnimatedVisibility", style = MaterialTheme.typography.titleLarge)
+
         Spacer(Modifier.height(50.dp))
 
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -350,6 +356,8 @@ fun ContentAnimationsSample() {
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text("ContentAnimations", style = MaterialTheme.typography.titleLarge)
+
         Spacer(Modifier.height(32.dp))
 
         Button(onClick = {
@@ -474,6 +482,8 @@ fun CrossfadeSample() {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text("Crossfade", style = MaterialTheme.typography.titleLarge)
+
         Spacer(Modifier.height(32.dp))
 
         Button(onClick = {
@@ -563,8 +573,13 @@ fun ShimmerSample() {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text("Shimmer", style = MaterialTheme.typography.titleLarge)
+
+        Spacer(Modifier.width(16.dp))
+
         Text("Cargando perfil...", style = MaterialTheme.typography.titleMedium)
 
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -652,6 +667,10 @@ fun InfiniteTransitionSample() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        Text("InfiniteTransition", style = MaterialTheme.typography.titleLarge)
+
+        Spacer(Modifier.width(16.dp))
+
         // 4. Se combinan ambas animaciones continuas en un único Box orgánico
         Box(
             modifier = Modifier

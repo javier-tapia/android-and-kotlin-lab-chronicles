@@ -1,5 +1,7 @@
 package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.navigation.deeplinks_and_applinks
 
+import androidx.compose.runtime.Composable
+
 /**
  * Experimento: Navegación mediante Deep Links y App Links.
  * 
@@ -9,6 +11,7 @@ package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundam
  * - Extracción de parámetros de consulta (query params) y rutas (path segments).
  * - Configuración de Intent Filters en el Manifest.
  */
-object DeepLinksLab {
+@Composable
+fun DeepLinksLab() {
     // Espacio para lógica de parseo de URIs y utilidades de navegación
 }

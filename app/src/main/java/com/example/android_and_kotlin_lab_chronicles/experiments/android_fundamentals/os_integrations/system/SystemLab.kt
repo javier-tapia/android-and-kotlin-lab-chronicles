@@ -1,5 +1,7 @@
 package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.system
 
+import androidx.compose.runtime.Composable
+
 /**
  * Experimentos: Integraciones con servicios del sistema y Google Play.
  * 
@@ -10,6 +12,7 @@ package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundam
  * - In-App Updates: Gestión de actualizaciones flexibles e inmediatas.
  * - In-App Reviews: Solicitud de reseñas dentro de la aplicación.
  */
-object SystemLab {
+@Composable
+fun SystemLab() {
     // Espacio para lógica de notificaciones, atajos y servicios de Play Store
 }

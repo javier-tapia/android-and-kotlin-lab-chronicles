@@ -103,7 +103,7 @@ object ExperimentProvider {
             target = DeepLinksActivity::class.java,
         ),
         Experiment(
-            title = "Background & System Receivers",
+            title = "WorkManager, Receivers, Services & Alarms",
             topic = ExperimentTopic.FUNDAMENTALS,
             target = BackgroundActivity::class.java,
         ),
@@ -113,7 +113,7 @@ object ExperimentProvider {
             target = LifecycleActivity::class.java,
         ),
         Experiment(
-            title = "System Integrations",
+            title = "Notifications, Shortcuts, Widgets & In-App Updates/Reviews",
             topic = ExperimentTopic.FUNDAMENTALS,
             target = SystemActivity::class.java,
         ),
@@ -153,7 +153,7 @@ object ExperimentProvider {
             target = AnimationsActivity::class.java,
         ),
         Experiment(
-            title = "Compose Component Catalog",
+            title = "Compose Components Catalog",
             topic = ExperimentTopic.COMPOSE,
             target = CatalogActivity::class.java,
         ),
@@ -183,7 +183,7 @@ object ExperimentProvider {
             target = DataOpsActivity::class.java,
         ),
         Experiment(
-            title = "Design Patterns (3 Variants)",
+            title = "Design Patterns (Classic, Idiomatic & DSL-style)",
             topic = ExperimentTopic.KOTLIN,
             target = DesignPatternsActivity::class.java,
         ),
@@ -213,7 +213,7 @@ object ExperimentProvider {
             target = StreamingActivity::class.java,
         ),
         Experiment(
-            title = "Networking (Retrofit vs Ktor)",
+            title = "Networking (Retrofit vs Ktor Client)",
             topic = ExperimentTopic.NETWORKING,
             target = NetworkActivity::class.java,
         ),

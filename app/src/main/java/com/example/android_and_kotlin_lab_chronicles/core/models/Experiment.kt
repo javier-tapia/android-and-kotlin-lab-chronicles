@@ -10,7 +10,7 @@ data class Experiment(
 
 enum class ExperimentTopic(val topicName: String) {
     FUNDAMENTALS("Android Fundamentals"),
-    DI("Inyección de Dependencias"),
+    DI("Dependency Injection"),
     GEOLOCATION("Geolocation & Maps"),
     INTEGRATIONS("Integrations"),
     COMPOSE("Jetpack Compose"),

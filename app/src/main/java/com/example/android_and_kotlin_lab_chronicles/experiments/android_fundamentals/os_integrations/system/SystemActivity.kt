@@ -16,7 +16,7 @@ class SystemActivity : ComponentActivity() {
         
         setContent {
             BaseLayoutScreen(title = "System Integrations Lab") {
-                // UI para probar: Notificaciones, Shortcuts, Updates y Reviews
+                SystemLab()
             }
         }
     }
