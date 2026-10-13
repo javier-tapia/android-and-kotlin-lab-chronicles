@@ -22,9 +22,9 @@ import androidx.work.WorkInfo
  * de control de concurrencia ([ExistingWorkPolicy.KEEP], [ExistingWorkPolicy.REPLACE]) y cadenas
  * de ejecución secuencial.
  *
- * Observa de forma reactiva el ciclo de vida del [WorkInfo] actual
- * mediante [collectAsStateWithLifecycle] para traducir los estados internos del sistema a
- * mensajes claros en tiempo real dentro de la interfaz.
+ * Observa de forma reactiva el ciclo de vida del [WorkInfo] actual mediante
+ * [collectAsStateWithLifecycle] para traducir los estados internos del sistema a mensajes claros en
+ * tiempo real dentro de la interfaz.
  *
  * @see WorkManagerLabViewModel
  * @see SyncDataWorker

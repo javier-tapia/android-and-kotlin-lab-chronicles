@@ -28,8 +28,14 @@ import javax.inject.Inject
  * necesario para inicializar *WorkManager*, y expone flujos reactivos basados en [StateFlow]
  * para monitorear el estado actual de los trabajos en tiempo real.
  *
- * ###### Componentes clave y su funcionamiento técnico
+ * #### Nota de Arquitectura (Desacoplamiento)
+ * En una implementación estricta de *Clean Architecture*, la interacción directa con *WorkManager*
+ * y el uso de [AndroidViewModel] deberían delegarse en un repositorio de infraestructura
+ * (ej.: `WorkManagerLabRepository`). Esto aísla la capa de presentación de los detalles del
+ * *framework* de Android, facilitando las pruebas unitarias y permitiendo reemplazar el motor de
+ * tareas secundarias sin alterar la lógica de la UI.
  *
+ * #### Componentes clave y su funcionamiento técnico
  * - `WorkInfo`: Representa la información de estado en tiempo real de una [androidx.work.WorkRequest].
  *     - **Qué es**: Una estructura de datos provista por *WorkManager* que encapsula el estado actual
  *       de una tarea, su identificador único ([UUID]), los datos de salida ([androidx.work.Data]),

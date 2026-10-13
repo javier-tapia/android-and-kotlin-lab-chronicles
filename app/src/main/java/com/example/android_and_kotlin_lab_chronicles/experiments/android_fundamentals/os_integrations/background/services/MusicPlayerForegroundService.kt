@@ -132,12 +132,7 @@ class MusicPlayerForegroundService : Service() {
         when (intent?.action) {
             ACTION_PLAY -> handlePlay()
             ACTION_PAUSE -> handlePause()
-            ACTION_STOP -> {
-                isPlaying = false
-                playbackJob?.cancel()
-                stopForeground(STOP_FOREGROUND_REMOVE)
-                stopSelf()
-            }
+            ACTION_STOP -> handleStop()
         }
 
         return START_NOT_STICKY
@@ -175,6 +170,13 @@ class MusicPlayerForegroundService : Service() {
         val notification = buildNotification("En pausa: Lab Track #1")
         getSystemService(NotificationManager::class.java)
             ?.notify(NOTIFICATION_ID, notification)
+    }
+
+    private fun handleStop() {
+        isPlaying = false
+        playbackJob?.cancel()
+        stopForeground(STOP_FOREGROUND_REMOVE)
+        stopSelf()
     }
 
     private fun createNotificationChannel() {

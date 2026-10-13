@@ -1,9 +1,5 @@
 package com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.broadcast_receivers
 
-import android.content.Context.RECEIVER_NOT_EXPORTED
-import android.content.Intent
-import android.content.IntentFilter
-import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,63 +13,35 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 /**
  * Pantalla de experimentación del laboratorio para visualizar en tiempo real el comportamiento
- * de los *receivers* dinámicos y su correcta gestión de recursos para evitar fugas de memoria
- * (*Context Leaks*), como también de los *receivers* estáticos.
+ * de los *receivers* dinámicos y estáticos.
  *
- * ###### Pruebas con *receivers* estáticos
- * Para no tener que reiniciar el dispositivo manualmente:
+ * ###### Pruebas con *receivers* estáticos (*Boot Completed*)
+ * Para simular el inicio del sistema sin reiniciar manualmente el emulador:
  *
- * 1°: Reiniciarlo con `adb`:
- * ```bash
- * # Iniciar el emulador como root (depende de que use una imagen de Google APIs en lugar de Google Play)
- * adb root
- *
- * # Reiniciar el demonio de ADB con privilegios de root para emitir el comando sin restricciones
- * adb shell am broadcast -a android.intent.action.BOOT_COMPLETED -p com.example.android_and_kotlin_lab_chronicles
- * ```
- * 2°: Refrescar la UI con el botón "Actualizar Registro de Boot"
+ * 1. Habilitar privilegios de root en el emulador (requiere una imagen de Google APIs, no de Google Play):
+ *    ```bash
+ *    adb root
+ *    ```
+ * 2. Enviar el broadcast de inicio explícitamente mediante ADB:
+ *    ```bash
+ *    adb shell am broadcast -a android.intent.action.BOOT_COMPLETED -p com.example.android_and_kotlin_lab_chronicles
+ *    ```
+ * 3. Pulsar el botón **"Actualizar Registro de Boot"** en la UI para refrescar la lectura persistida.
  */
 @Composable
-fun BroadcastReceiverLab() {
-    val context = LocalContext.current
-    var eventLog by rememberSaveable { mutableStateOf("Monitoreando eventos dinámicos...") }
-    var staticBootLog by rememberSaveable { mutableStateOf(StaticBootReceiver.getLastBootRecord(context)) }
-
-    // Ciclo de vida seguro acoplado al scope del Composable para el receptor dinámico
-    DisposableEffect(context) {
-        val receiver = DynamicSystemStateReceiver { message ->
-            eventLog = message
-        }
-
-        val intentFilter = IntentFilter().apply {
-            addAction(Intent.ACTION_BATTERY_LOW)
-            addAction(Intent.ACTION_POWER_CONNECTED)
-            addAction(Intent.ACTION_POWER_DISCONNECTED)
-        }
-
-        // Registro seguro conforme a los estándares de seguridad de Android Moderno
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            context.registerReceiver(receiver, intentFilter, RECEIVER_NOT_EXPORTED)
-        } else {
-            context.registerReceiver(receiver, intentFilter)
-        }
-
-        // Limpieza obligatoria del recurso al salir de la composición
-        onDispose {
-            context.unregisterReceiver(receiver)
-        }
-    }
+fun BroadcastReceiverLab(
+    viewModel: BroadcastReceiverViewModel = hiltViewModel()
+) {
+    val eventLog by viewModel.eventLog.collectAsStateWithLifecycle()
+    val staticBootLog by viewModel.staticBootLog.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -130,8 +98,7 @@ fun BroadcastReceiverLab() {
 
                 Button(
                     onClick = {
-                        // Refresca el estado leído de SharedPreferences
-                        staticBootLog = StaticBootReceiver.getLastBootRecord(context)
+                        viewModel.refreshBootLog()
                     }
                 ) {
                     Text(text = "Actualizar Registro de Boot")

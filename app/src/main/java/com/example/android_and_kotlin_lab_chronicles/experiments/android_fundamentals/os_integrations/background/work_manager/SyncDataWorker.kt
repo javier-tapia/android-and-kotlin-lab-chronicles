@@ -15,7 +15,7 @@ import kotlin.coroutines.cancellation.CancellationException
  * Utiliza [CoroutineWorker] para correr de manera no bloqueante mediante corrutinas en un hilo
  * optimizado para E/S, simplificando las llamadas de red o base de datos.
  *
- * ###### Componentes clave, anotaciones y su funcionamiento técnico
+ * #### Componentes clave, anotaciones y su funcionamiento técnico
  * - ``@HiltWorker``: Anotación que habilita a Hilt para reconocer este Worker e inyectarle
  *   dependencias personalizadas (como [SyncRepository]) mediante un [androidx.hilt.work.HiltWorkerFactory].
  * - ``@AssistedInject`` y ``@Assisted``: Patrón de inyección asistida. Permiten combinar dependencias

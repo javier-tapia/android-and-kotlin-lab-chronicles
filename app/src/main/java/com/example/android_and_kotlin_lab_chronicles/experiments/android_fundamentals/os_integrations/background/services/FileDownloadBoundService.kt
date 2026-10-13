@@ -18,8 +18,12 @@ import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * ### *Bound Service* (*in-process*)
+ *
+ * Este servicio simula un motor de descarga de archivos y expone su progreso en tiempo real hacia
+ * los clientes vinculados.
+ *
  * - Permiten comunicación **bidireccional síncrona y directa** mediante llamadas a métodos en memoria
- * a través del ``Binder`` (ej. ``serviceInstance?.startDownload()``).
+ * a través del ``Binder`` (ej. ``serviceRef?.get()?.startDownload()`` desde el ViewModel).
  * - Actúan como una interfaz cliente-servidor, **normalmente dentro del mismo proceso y espacio
  * de memoria** de la app que lo invoca (**_in-process_**), permitiendo que otros componentes (como
  * una *Activity*) se vinculen a ellos para **interactuar o enviar comandos** mediante referencias a
@@ -35,9 +39,6 @@ import kotlin.time.Duration.Companion.milliseconds
  * que tiene **cero privilegios de persistencia**.
  * - **Ejemplos de uso**: Reproducción de audio con controles en UI; Descarga de archivos con
  * progreso en tiempo real; Comunicación con *hardware* (Bluetooth, sensores, etc.).
- *
- * Este lab simula un motor de descarga de archivos y expone su progreso en tiempo real hacia los
- * clientes vinculados.
  */
 class FileDownloadBoundService : Service() {
 

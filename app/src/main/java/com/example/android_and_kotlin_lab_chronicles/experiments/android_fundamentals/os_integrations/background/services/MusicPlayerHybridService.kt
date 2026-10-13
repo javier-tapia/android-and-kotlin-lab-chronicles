@@ -144,10 +144,9 @@ class MusicPlayerHybridService : Service() {
     companion object {
         private const val CHANNEL_ID = "lab_hybrid_music_channel"
         private const val NOTIFICATION_ID = 3001
-
-        const val ACTION_PLAY = "action_play"
-        const val ACTION_PAUSE = "action_pause"
-        const val ACTION_STOP = "action_stop"
+        private const val ACTION_PLAY = "action_play"
+        private const val ACTION_PAUSE = "action_pause"
+        private const val ACTION_STOP = "action_stop"
 
         @SuppressLint("ObsoleteSdkInt")
         fun start(context: Context) {

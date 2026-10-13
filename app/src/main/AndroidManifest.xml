@@ -50,9 +50,16 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!-- Broadcast Receivers:
+    <!-- Broadcast Receivers & Alarms:
     Permiso requerido a nivel de aplicación para escuchar el evento de reinicio del dispositivo -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- No forma parte del flujo estándar de Runtime Permissions. Está clasificado por el sistema
+    como un Permiso de Acceso Especial (Special App Access / sección Alarms & reminders en los
+    ajustes del dispositivo).
+    Cómo se maneja correctamente: Obligatoriamente, requiere disparar un 'Intent' hacia la pantalla
+    de configuración del sistema ('Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM'). -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <!-- Permiso para enviar notificaciones (Android 13+).
     Al ser un Runtime Permission, requiere que la app le pida confirmación al usuario en pantalla. -->
@@ -135,10 +142,16 @@
                 tools:node="remove" />
         </provider>
 
-        <!-- Receptor (Receiver) Estático "endurecido" para mitigar ataques:
+        <!-- Receptor (Receiver) Estático "endurecido" para mitigar ataques.
+        📌 IMPORTANTE: El receiver siguiente 👇 también es de boot, pero pertenece al Lab de Alarm
+        Manager. Se dejan intencionalmente ambos para fines didácticos.
         - 'android:exported="true"': Requerido exclusivamente porque el emisor es el OS (fuera de
         nuestro Process UID).
-        - 'android:permission': Restringe la invocación directa a procesos que posean el permiso de sistema. -->
+        - 'android:permission': Restringe la invocación directa a procesos que posean el permiso de
+        sistema.
+        - 'BOOT_COMPLETED' y 'QUICKBOOT_POWERON': Se disparan exclusivamente cuando el hardware se
+        enciende y el sistema operativo completa el arranque general. Sirven para restaurar estados
+        globales del dispositivo. -->
         <receiver
             android:name=".experiments.android_fundamentals.os_integrations.background.broadcast_receivers.StaticBootReceiver"
             android:enabled="true"
@@ -149,6 +162,31 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
+
+        <!-- Receptor (Receiver) de Reinicio del Sistema.
+        📌 IMPORTANTE: El receiver anterior 👆 también es de boot, pero pertenece al Lab de Broadcast
+        Receivers. Se dejan intencionalmente ambos para fines didácticos.
+        - 'MY_PACKAGE_REPLACED': El sistema operativo lo emite únicamente a la aplicación cuando
+        esta se actualiza (por ejemplo, se instala una nueva versión desde Google Play, ADB o el
+        entorno de desarrollo). -->
+        <receiver
+            android:name=".experiments.android_fundamentals.os_integrations.background.alarm_manager.BootReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Receptor (Receiver) de Alarmas Exactas.
+        - 'android:exported="false"' refleja el principio de menor privilegio (Principle of Least
+        Privilege o PoLP), ya que solo recibe intents internos originados por un 'PendingIntent' propio -->
+        <receiver
+            android:name=".experiments.android_fundamentals.os_integrations.background.alarm_manager.AlarmReceiver"
+            android:exported="false" />
 
         <!-- Foreground Service (FGS) con tipado obligatorio ('mediaPlayback' en este caso) y
         aislamiento estricto de seguridad -->

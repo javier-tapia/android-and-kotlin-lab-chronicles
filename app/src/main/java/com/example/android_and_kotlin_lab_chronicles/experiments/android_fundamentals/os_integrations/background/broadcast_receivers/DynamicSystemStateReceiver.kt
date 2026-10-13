@@ -7,8 +7,8 @@ import android.content.Intent
 /**
  * ### *Dynamic System State Receiver* (Receptor Dinámico *Context-Registered*)
  *
- * Receptor acoplado al ciclo de vida del componente que lo registra (típicamente una *Activity* o
- * un *Composable* vía efecto).
+ * Receptor **acoplado al ciclo de vida del componente que lo registra** (típicamente una *Activity*
+ * o un *Composable* vía efecto).
  *
  * #### Consideraciones de Seguridad en IPC (Android 13+ / API 33+, AKA ``TIRAMISU``):
  * Es mandatorio especificar explícitamente la visibilidad del receptor mediante los *flags* de

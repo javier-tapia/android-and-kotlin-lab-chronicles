@@ -6,8 +6,8 @@ import javax.inject.Singleton
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
- * Repositorio simulado que ejecuta una operación de larga duración (3 segundos)
- * y retorna un resultado booleano para evaluar el comportamiento de los workers en segundo plano.
+ * Repositorio simulado que ejecuta una operación de larga duración (3 segundos) y retorna un
+ * resultado booleano para evaluar el comportamiento de los *workers* en segundo plano.
  */
 @Singleton
 class SyncRepository @Inject constructor() {

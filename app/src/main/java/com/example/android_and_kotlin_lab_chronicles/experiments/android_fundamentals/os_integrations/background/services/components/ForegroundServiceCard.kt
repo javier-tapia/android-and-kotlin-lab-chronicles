@@ -16,24 +16,33 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.android_and_kotlin_lab_chronicles.experiments.android_fundamentals.os_integrations.background.services.MusicPlayerForegroundService
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 
 /**
- * #### Componentes clave y su funcionamiento técnico
- * - `permissionLauncher` utiliza `ActivityResultContracts` para gestionar permisos de seguridad
- * del sistema (como el de las notificaciones, `Manifest.permission.POST_NOTIFICATIONS`).
+ * ### Capa de Presentación Pura
+ *
+ * Componente Composable que representa la interfaz visual del laboratorio de *Foreground Service*.
+ *
+ * #### Aspectos Clave de Arquitectura y Funcionamiento
+ * - **Delegación al ViewModel**: Toda la lógica de negocio y emisión de comandos al servicio
+ *   se delega a [ForegroundServiceViewModel], manteniendo este Composable libre de referencias
+ *   directas a `Context`, `Intents` o lógica de infraestructura.
+ * - **Gestión de Permisos (`permissionLauncher`)**: Utiliza `ActivityResultContracts.RequestPermission()`
+ *   para solicitar dinámicamente el permiso de seguridad `Manifest.permission.POST_NOTIFICATIONS`
+ *   (requerido en Android 13 / API 33+) antes de autorizar el inicio de la reproducción en primer plano.
+ *
+ * @param viewModel Instancia del [ForegroundServiceViewModel] inyectada automáticamente mediante Hilt.
  */
 @Composable
-fun ForegroundServiceCard() {
-    val context = LocalContext.current
-
+fun ForegroundServiceCard(
+    viewModel: ForegroundServiceViewModel = hiltViewModel()
+) {
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            MusicPlayerForegroundService.start(context)
+            viewModel.startPlayback()
         }
     }
 
@@ -56,19 +65,19 @@ fun ForegroundServiceCard() {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                             permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                         } else {
-                            MusicPlayerForegroundService.start(context)
+                            viewModel.startPlayback()
                         }
                     }
                 ) {
                     Text("Play")
                 }
                 OutlinedButton(
-                    onClick = { MusicPlayerForegroundService.pause(context) }
+                    onClick = { viewModel.pausePlayback() }
                 ) {
                     Text("Pause")
                 }
                 OutlinedButton(
-                    onClick = { MusicPlayerForegroundService.stop(context) }
+                    onClick = { viewModel.stopService() }
                 ) {
                     Text("Stop")
                 }

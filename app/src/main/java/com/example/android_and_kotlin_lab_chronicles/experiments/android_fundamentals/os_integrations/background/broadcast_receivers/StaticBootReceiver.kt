@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter
  *
  * ### Contexto Técnico y Restricciones del OS
  * - **Instanciación Efímera**: El sistema operativo instancia esta clase bajo demanda al coincidir
- * el filtro de intents, ejecutando [onReceive] en el *Main Looper* (*Main Thread*).
+ * el filtro de *intents*, ejecutando [onReceive] en el *Main Looper* (*Main Thread*).
  * - **Restricción de Ciclo de Vida (Android 8.0+ / API 26+)**: Los receptores estáticos para eventos
  * implícitos fueron restringidos drásticamente por el *runtime* de Android para mitigar el consumo
  * de batería (*Background Execution Limits*).
